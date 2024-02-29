@@ -29,3 +29,6 @@ class Purchase(models.Model):
         verbose_name = 'Статус оплаты'
         verbose_name_plural = 'Статусы оплаты'
         unique_together = ('username', 'product_id',)
+
+    def __str__(self):
+        return f'{self.username.username} - {self.product_id.product_name}'

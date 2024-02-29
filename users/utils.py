@@ -3,25 +3,28 @@ from products.models import Product, Purchase
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def get_student_or_create_new(form):
+def get_student(form):
     try:
         username = form.cleaned_data['username']
+        surname = form.cleaned_data['surname']
+        name = form.cleaned_data['name']
         student_obj = Student.objects.get(username=username)
-        # if student_obj.
+        if (student_obj.username == username 
+                and student_obj.surname == surname
+                and student_obj.name == name):
+            return student_obj
+        else:
+            student_obj = None
     except ObjectDoesNotExist:
-        student_obj = Student()
-        student_obj.username = form.cleaned_data['username']
-        student_obj.surname = form.cleaned_data['surname']
-        student_obj.name = form.cleaned_data['name']
+        student_obj = None
     return student_obj
 
 
-def get_purchase_status(form, product_obj):
+def get_purchase_status(product_obj, student_obj):
     try:
-        username = form.cleaned_data['username']
         purchased_status_obj = (Purchase.objects.select_related('username')
                                 .select_related('product_id')
-                                .get(product_id=product_obj, username=username))
+                                .get(product_id=product_obj, username=student_obj))
     except ObjectDoesNotExist:
         purchased_status_obj = None
     return purchased_status_obj    
@@ -37,3 +40,9 @@ def get_product(form):
     return product_obj                  
 
     
+def create_purchase_status_obj(student_obj, product_obj):
+    purchased_status_obj = Purchase()
+    purchased_status_obj.username = student_obj
+    purchased_status_obj.product_id = product_obj
+    purchased_status_obj.status = True
+    return purchased_status_obj

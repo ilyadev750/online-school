@@ -1,0 +1,12 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <h1>Hello!</h1>
+    <a href={% url 'add_student' %}>Добавить студента</a>
+</body>
+</html>

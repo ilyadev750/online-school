@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+
+<h1>Добавить студента в группу по выбранному курсу</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {% for field in form %}
+      <p>{{ field.label_tag }}</p> 
+      <p>{{ field }}</p>
+    {% endfor %}
+    <div>
+      <button type="submit" name="add_student">Добавить студента</button>
+    </div>
+</form>
+{{ error }}
+</body>
+</html>
