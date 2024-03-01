@@ -11,13 +11,9 @@ def add_student_to_product(request):
         student_form = AddStudentForm(request.POST)
         if student_form.is_valid():
             product_obj = get_product(product_name=product_name)
-            if not product_obj:
-                context = {'error': 'Продукта с данным именем не существует!',
-                           'form': AddStudentForm()}
-                return render(request, 'users/add_student.html', context)
             student_obj = get_student(form=student_form)
-            if not student_obj:
-                context = {'error': 'Студента с данным именем не существует!',
+            if not product_obj or not student_obj:
+                context = {'error': 'Студента или продукта с данным именем не существует!',
                            'form': AddStudentForm()}
                 return render(request, 'users/add_student.html', context)
             purchased_status_obj = get_purchase_status(product_obj=product_obj,
@@ -28,9 +24,7 @@ def add_student_to_product(request):
                 return render(request, 'users/add_student.html', context)
             purchased_status_obj = create_purchase_status_obj(student_obj=student_obj, product_obj=product_obj)
             purchased_status_obj.save()
-            group = get_the_group(product_obj=product_obj)
-            group.student.add(student_obj)
-            group.quantity += 1
+            group = get_the_group(product_obj=product_obj, student_obj=student_obj)
             group.save()
             return redirect('home')
     else:

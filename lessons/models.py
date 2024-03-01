@@ -16,14 +16,14 @@ class Lesson(models.Model):
         unique_together = ('lesson_name', 'product_id',)
 
     def __str__(self):
-        return f'{self.lesson_name}'
+        return f'{self.lesson_name} - {self.product_id.product_name}'
     
 
 class Group(models.Model):
     group_name = models.CharField(max_length=100, verbose_name='Название группы')
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
     lector_id = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Лектор')
-    quantity = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(3)])
+    quantity = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(2)])
     student = models.ManyToManyField(Student)
 
     def __str__(self):
