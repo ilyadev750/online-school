@@ -10,16 +10,16 @@ from django.db.models import Subquery, OuterRef, Count
 
 
 class ProductSet(APIView):
-
+    
     def get(self, request, format=None):
-        queryset = (Product.objects.select_related('author').all()
-                    .annotate(video_quantity=Subquery(
-                        Lesson.objects.select_related('product_id')
-                        .filter(product_id__pk=OuterRef('pk'))
-                        .values('product_id')
-                        .annotate(count=Count('id'))
-                        .values('count'))))
-        print(queryset)
+        # queryset = (Product.objects.select_related('author').all()
+        #             .annotate(video_quantity=Subquery(
+        #                 Lesson.objects.select_related('product_id')
+        #                 .filter(product_id__pk=OuterRef('pk'))
+        #                 .values('product_id')
+        #                 .annotate(count=Count('id'))
+        #                 .values('count'))))
+        queryset = Product.objects.select_related('author').all()
         serializer = ProductSerializer(queryset, many=True)
         return Response(serializer.data)
 

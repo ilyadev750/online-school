@@ -1,6 +1,5 @@
 from django.urls import path, include
 from .views import index, ProductSet
-from rest_framework import routers
 
 
 urlpatterns = [

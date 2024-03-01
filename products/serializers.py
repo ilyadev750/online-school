@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.serializers import AuthorSerializer
+from users.serializers import AuthorSerializer, StudentSerializer
 from lessons.models import Lesson
 
 
@@ -10,3 +10,10 @@ class ProductSerializer(serializers.Serializer):
     price = serializers.IntegerField(read_only=True)
     author = AuthorSerializer(read_only=True)
     video_quantity = serializers.IntegerField(read_only=True)
+
+
+class PurchaseSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    username = StudentSerializer(read_only=True)
+    product_id = ProductSerializer(read_only=True)
+    status = serializers.BooleanField(read_only=True)

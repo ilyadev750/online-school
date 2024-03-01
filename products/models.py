@@ -8,6 +8,7 @@ class Product(models.Model):
     start_date = models.DateTimeField(default=None, verbose_name='Начало')
     price = models.IntegerField(verbose_name='Цена')
     author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор курса')
+    video_quantity = models.IntegerField(default=0, verbose_name='Количество видео')
 
     
     class Meta:
