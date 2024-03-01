@@ -3,10 +3,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>{% block title %} {% endblock %}</title>
+<title>Курсы</title>
 </head>
 <body>
-    <h1>Hello!</h1>
-    <a href={% url 'add_student' %}>Добавить студента</a>
+    <h1>Доступные курсы</h1>
+    {% for product in products %}
+        <p>{{product.product_name}}</p>
+        <p>Начало обучения {{product.start_date}}</p>
+        <p>Цена {{product.price}} рублей</p>
+        <p>Автор {{product.author}}</p>
+        <a href="{{ add_student_url }}?product_name={{ product.product_name }}" target="_blank">Добавить студента в группу</a>
+    {% endfor %}
 </body>
 </html>

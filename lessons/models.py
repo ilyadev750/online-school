@@ -1,6 +1,7 @@
 from django.db import models
 from products.models import Product
 from users.models import Student, Author
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Lesson(models.Model):
@@ -22,8 +23,8 @@ class Group(models.Model):
     group_name = models.CharField(max_length=100, verbose_name='Название группы')
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
     lector_id = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Лектор')
+    quantity = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(3)])
     student = models.ManyToManyField(Student)
-
 
     def __str__(self):
         return f'{self.group_name}'

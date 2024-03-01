@@ -30,9 +30,8 @@ def get_purchase_status(product_obj, student_obj):
     return purchased_status_obj    
 
 
-def get_product(form):
+def get_product(product_name):
     try:
-        product_name = form.cleaned_data['product_name']
         product_obj = (Product.objects.select_related('author')
                        .get(product_name=product_name))
     except ObjectDoesNotExist:
