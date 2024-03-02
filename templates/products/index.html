@@ -14,5 +14,16 @@
         <p>Автор {{product.author}}</p>
         <a href="{{ add_student_url }}?product_name={{ product.product_name }}">Добавить студента в группу</a>
     {% endfor %}
+<p></p>
+<a href="{{ all_products_json }}">Получить список продуктов в JSON формате</a>
+<p></p>
+<p><h3>Список студентов</h3></p>
+<ul>
+    {% for student in students %}
+    <li>{{student.surname}} {{student.name}} {{ student.username }}
+        <a href="{{get_user_lessons_json}}?username={{student.username}}">Уроки</a></li>
+    </li>
+    {% endfor %}
+</ul>
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Product
+from users.models import Student
 from .serializers import ProductSerializer
 from django.urls import reverse
 from rest_framework.views import APIView
@@ -28,7 +29,13 @@ def index(request):
     """Получить список продуктов, ссылки на добавление
     студентов в учебные группы"""
     products = Product.objects.select_related('author').all()
+    students = Student.objects.all()
     add_student_url = reverse('add_student')
+    get_products_json = reverse('all_products')
+    get_student_lessons_json = reverse('lessons')
     context = {'products': products,
-               'add_student_url': add_student_url}
+               'students': students,
+               'add_student_url': add_student_url,
+               'all_products_json': get_products_json,
+               'get_user_lessons_json': get_student_lessons_json}
     return render(request, 'products/index.html', context)

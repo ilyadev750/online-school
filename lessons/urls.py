@@ -3,5 +3,5 @@ from .views import LessonSet
 
 
 urlpatterns = [
-    path('product/', LessonSet.as_view(), name='product'),
+    path('lessons/', LessonSet.as_view(), name='lessons'),
 ]
