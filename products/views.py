@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from .models import Product
-from lessons.models import Lesson
 from .serializers import ProductSerializer
 from django.urls import reverse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.db.models import Value, IntegerField
-from django.db.models import Subquery, OuterRef, Count
 
 
 class ProductSet(APIView):
-    
+    """Получить список доступных продуктов в
+    JSON-формате. В комментариях пример подзапроса
+    расчета количества уроков в продукте. Не использовал
+    в проекте из-за N+1 проблемы"""
     def get(self, request, format=None):
         # queryset = (Product.objects.select_related('author').all()
         #             .annotate(video_quantity=Subquery(
@@ -25,9 +25,10 @@ class ProductSet(APIView):
 
 
 def index(request):
+    """Получить список продуктов, ссылки на добавление
+    студентов в учебные группы"""
     products = Product.objects.select_related('author').all()
     add_student_url = reverse('add_student')
     context = {'products': products,
                'add_student_url': add_student_url}
     return render(request, 'products/index.html', context)
-    

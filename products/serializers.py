@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from users.serializers import AuthorSerializer, StudentSerializer
-from lessons.models import Lesson
 
 
 class ProductSerializer(serializers.Serializer):
+    """Сериализатор продукта"""
     id = serializers.IntegerField(read_only=True)
     product_name = serializers.CharField(max_length=100, read_only=True)
     start_date = serializers.DateTimeField(read_only=True)
@@ -13,6 +13,7 @@ class ProductSerializer(serializers.Serializer):
 
 
 class PurchaseSerializer(serializers.Serializer):
+    """Сериализатор проверки статуса оплаты"""
     id = serializers.IntegerField(read_only=True)
     username = StudentSerializer(read_only=True)
     product_id = ProductSerializer(read_only=True)

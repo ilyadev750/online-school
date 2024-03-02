@@ -2,10 +2,15 @@ from django.db import models
 
 
 class Student(models.Model):
-    username = models.CharField(max_length=100, verbose_name='Никнейм', unique=True)
-    surname = models.CharField(max_length=100, verbose_name='Фамилия')
-    name = models.CharField(max_length=100, verbose_name='Имя')
-    
+    """Модель студента"""
+    username = models.CharField(max_length=100,
+                                verbose_name='Никнейм',
+                                unique=True)
+    surname = models.CharField(max_length=100,
+                               verbose_name='Фамилия')
+    name = models.CharField(max_length=100,
+                            verbose_name='Имя')
+
     class Meta:
         db_table = 'student'
         verbose_name = 'Студент'
@@ -14,11 +19,15 @@ class Student(models.Model):
     def __str__(self):
         return f'{self.username}'
 
-    
+
 class Author(models.Model):
-    surname = models.CharField(max_length=100, verbose_name='Фамилия автора')
-    name = models.CharField(max_length=100, verbose_name='Имя автора')
-    patronymic = models.CharField(max_length=100, verbose_name='Отчество автора')
+    """Модель автора/преподавателя продукта"""
+    surname = models.CharField(max_length=100,
+                               verbose_name='Фамилия автора')
+    name = models.CharField(max_length=100,
+                            verbose_name='Имя автора')
+    patronymic = models.CharField(max_length=100,
+                                  verbose_name='Отчество автора')
 
     class Meta:
         db_table = 'author'

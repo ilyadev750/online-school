@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from products.models import Purchase
 from .models import Lesson
 from rest_framework.views import APIView
@@ -7,7 +6,9 @@ from rest_framework.response import Response
 
 
 class LessonSet(APIView):
-
+    """Извлечение из GET запроса никнейма студента,
+    проверка статуса оплаты, по ключу продукта поиск
+    списка уроков и вывод ответа в JSON-формате"""
     def get(self, request, format=None):
         username = request.GET.get('username')
         purchased_products = (Purchase.objects.select_related('username')
@@ -20,5 +21,4 @@ class LessonSet(APIView):
         lessons = (Lesson.objects.prefetch_related('product_id')
                    .filter(product_id__in=values))
         serializer = LessonSerializer(lessons, many=True)
-        return Response(serializer.data)                               
-        
+        return Response(serializer.data)

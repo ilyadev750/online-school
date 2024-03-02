@@ -1,16 +1,20 @@
 from django.db import models
-from datetime import datetime
 from users.models import Author, Student
 
 
 class Product(models.Model):
-    product_name = models.CharField(max_length=100, verbose_name='Название продукта')
-    start_date = models.DateTimeField(default=None, verbose_name='Начало')
+    """Модель продукта"""
+    product_name = models.CharField(max_length=100,
+                                    verbose_name='Название продукта')
+    start_date = models.DateTimeField(default=None,
+                                      verbose_name='Начало')
     price = models.IntegerField(verbose_name='Цена')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор курса')
-    video_quantity = models.IntegerField(default=0, verbose_name='Количество видео')
+    author = models.ForeignKey(Author,
+                               on_delete=models.CASCADE,
+                               verbose_name='Автор курса')
+    video_quantity = models.IntegerField(default=0,
+                                         verbose_name='Количество видео')
 
-    
     class Meta:
         db_table = 'product'
         verbose_name = 'Продукты'
@@ -21,8 +25,16 @@ class Product(models.Model):
 
 
 class Purchase(models.Model):
-    username = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='Пользователь')
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    """Модель статусов оплаты. По умолчанию для
+    упрощения демонстрации работы программы
+    статус оплаты для каждого студента равен
+    True"""
+    username = models.ForeignKey(Student,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Пользователь')
+    product_id = models.ForeignKey(Product,
+                                   on_delete=models.CASCADE,
+                                   verbose_name='Продукт')
     status = models.BooleanField(verbose_name='Статус оплаты')
 
     class Meta:
